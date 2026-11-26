@@ -69,7 +69,6 @@ button {
     top: -30px;
     color: #ffffff;
     user-select: none;
-    /* Kettős árnyék: lágy fényudvar + élesebb kontúr a tökéletes láthatóságért világos háttéren is */
     filter: drop-shadow(0 2px 5px rgba(30, 50, 65, 0.45)) drop-shadow(0 0 1px rgba(0, 0, 0, 0.3));
     animation: snowFall linear infinite;
     will-change: transform, opacity;
@@ -263,6 +262,16 @@ button {
     letter-spacing: 3px;
 }
 
+/* SZEKCIÓK VEZÉRLÉSE (Alapból rejtve, ha ki van választva) */
+.toggle-section {
+    display: none;
+}
+
+.toggle-section.visible {
+    display: block;
+    animation: reveal .9s ease both;
+}
+
 /* ÁLTALÁNOS SZEKCIÓK */
 
 section {
@@ -386,15 +395,6 @@ section {
 
 /* SZEMÉLYES ÜZENET */
 
-#personal {
-    display: none;
-}
-
-#personal.visible {
-    display: block;
-    animation: reveal .9s ease both;
-}
-
 .personal-card {
     position: relative;
     max-width: 850px;
@@ -500,6 +500,63 @@ section {
     filter: saturate(.55);
 }
 
+/* Kiemelt Aláírás Kártya Stílusa */
+.signature-card {
+    max-width: 750px;
+    margin: 45px auto 0;
+    background: #ffffff;
+    border: 2px dashed #739bb5;
+    border-radius: 16px;
+    padding: 28px 20px;
+    box-shadow: 0 10px 30px rgba(115, 155, 184, 0.2);
+    text-align: center;
+}
+
+.signature-card .sig-title {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: #7d9fb5;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.signature-card .sig-text {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(18px, 2.5vw, 22px);
+    color: #344b5c;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.signature-card .sig-text span {
+    color: #638ba7;
+    font-weight: 700;
+}
+
+/* Váltó gombok a szekciók alján */
+.section-switch-container {
+    text-align: center;
+    margin-top: 35px;
+}
+
+.button-switch {
+    background: #ffffff;
+    color: #638ba7;
+    border: 1px solid #a4c2d4;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(115, 155, 184, 0.15);
+    transition: .3s;
+}
+
+.button-switch:hover {
+    background: #eaf3f8;
+    transform: translateY(-2px);
+}
+
 footer {
     text-align: center;
     padding: 25px;
@@ -532,7 +589,7 @@ footer {
     }
 }
 
-/* Apró, havas csillanások konfetti helyett */
+/* Csillanások */
 .confetti-piece {
     position: absolute;
     top: -20px;
@@ -647,12 +704,11 @@ footer {
 
     <div class="hero-buttons">
 
-        <button class="button-primary" onclick="showPersonal()">
+        <button class="button-primary" onclick="showSection('personal')">
             Van valami, amit szeretnék elmondani ✨
         </button>
 
-        <button class="button-secondary"
-        onclick="document.getElementById('gallery').scrollIntoView({behavior:'smooth'})">
+        <button class="button-secondary" onclick="showSection('gallery')">
             Nézd meg a meglepetést ↓
         </button>
 
@@ -664,9 +720,9 @@ footer {
 
 </header>
 
-<!-- KÉPEK -->
+<!-- KÉPEK SZEKCIÓ (Alapból rejtve) -->
 
-<section id="gallery">
+<section id="gallery" class="toggle-section">
 
     <div class="section-heading">
         <span>A LITTLE COLLECTION OF BEAUTY</span>
@@ -691,11 +747,18 @@ footer {
 
     </div>
 
+    <!-- Váltó gomb a másik opcióra -->
+    <div class="section-switch-container">
+        <button class="button-switch" onclick="showSection('personal')">
+            Tovább a személyes üzenethez ✨
+        </button>
+    </div>
+
 </section>
 
 <!-- KEDVES GONDOLAT -->
 
-<section class="message-banner">
+<section class="message-banner toggle-section" id="bannerSection">
 
     <div class="decoration">🌼 ✨ 🌷</div>
 
@@ -712,9 +775,9 @@ footer {
 
 </section>
 
-<!-- SZEMÉLYES JELLEMZÉS -->
+<!-- SZEMÉLYES JELLEMZÉS (Alapból rejtve) -->
 
-<section id="personal">
+<section id="personal" class="toggle-section">
 
     <div class="personal-card">
 
@@ -763,9 +826,16 @@ footer {
 
     </div>
 
+    <!-- Váltó gomb a képekhez -->
+    <div class="section-switch-container">
+        <button class="button-switch" onclick="showSection('gallery')">
+            ← Vissza a képekhez
+        </button>
+    </div>
+
 </section>
 
-<!-- ZÁRÁS -->
+<!-- ZÁRÓ RÉSZ -->
 
 <section class="closing">
 
@@ -773,7 +843,7 @@ footer {
 
     <p>
         Rengeteg nevetést, vidám pillanatot,
-        új élményeket, sok-kocs sikert és
+        új élményeket, sok-sok sikert és
         megannyi apró boldogságot kívánok neked!
 
         <br><br>
@@ -785,6 +855,14 @@ footer {
 
     <div class="closing-decoration">
         🌷 🎂 ☀️ 🎉
+    </div>
+
+    <!-- KIEMELT ALÁÍRÁS -->
+    <div class="signature-card">
+        <div class="sig-title">✦ Különleges üzenet ✦</div>
+        <div class="sig-text">
+            Nagyon sok szeretettel <span>Farkas Aurél Művészúrtól</span> a vajdák vajdájától <span>Szilágyi Gréta lövész főnökasszony</span> részére
+        </div>
     </div>
 
 </section>
@@ -809,18 +887,17 @@ footer {
         flake.textContent = symbols[Math.floor(Math.random() * symbols.length)];
         flake.style.left = Math.random() * 100 + "vw";
         
-        // Mélységélesség (előtér vs háttér)
         const isForeground = Math.random() > 0.6;
         
         if (isForeground) {
-            flake.style.fontSize = (13 + Math.random() * 9) + "px"; // Nagyobb pelyhek
-            flake.style.opacity = (0.8 + Math.random() * 0.2).toFixed(2); // Élénkebb
-            flake.style.animationDuration = (6 + Math.random() * 6) + "s"; // Gyorsabb esés
+            flake.style.fontSize = (13 + Math.random() * 9) + "px";
+            flake.style.opacity = (0.8 + Math.random() * 0.2).toFixed(2);
+            flake.style.animationDuration = (6 + Math.random() * 6) + "s";
             flake.style.zIndex = "9";
         } else {
-            flake.style.fontSize = (7 + Math.random() * 6) + "px"; // Apróbb pelyhek
-            flake.style.opacity = (0.35 + Math.random() * 0.3).toFixed(2); // Halványabb
-            flake.style.animationDuration = (12 + Math.random() * 10) + "s"; // Lassabb esés
+            flake.style.fontSize = (7 + Math.random() * 6) + "px";
+            flake.style.opacity = (0.35 + Math.random() * 0.3).toFixed(2);
+            flake.style.animationDuration = (12 + Math.random() * 10) + "s";
         }
 
         flake.style.animationDelay = (-Math.random() * 20) + "s";
@@ -853,15 +930,32 @@ musicButton.addEventListener("click", async () => {
     }
 });
 
-// SZEMÉLYES ÜZENET MEGNYITÁSA
-function showPersonal() {
-    const section = document.getElementById("personal");
-    section.classList.add("visible");
-    section.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-    });
-    launchConfetti();
+// SZEKCIÓK MEGJELENÍTÉSE KIVÁLASZTÁS ALAPJÁN
+function showSection(targetId) {
+    const gallerySec = document.getElementById("gallery");
+    const bannerSec = document.getElementById("bannerSection");
+    const personalSec = document.getElementById("personal");
+
+    if (targetId === 'personal') {
+        personalSec.classList.add("visible");
+        bannerSec.classList.add("visible");
+        gallerySec.classList.remove("visible");
+        
+        personalSec.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+        launchConfetti();
+    } else if (targetId === 'gallery') {
+        gallerySec.classList.add("visible");
+        personalSec.classList.remove("visible");
+        bannerSec.classList.remove("visible");
+
+        gallerySec.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
 }
 
 // HANGULATOS CSILLANÁSOK
@@ -884,10 +978,6 @@ function launchConfetti() {
         }, 8500);
     }
 }
-
-window.addEventListener("load", () => {
-    setTimeout(launchConfetti, 600);
-});
 </script>
 
 </body>
