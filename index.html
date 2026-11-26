@@ -55,7 +55,7 @@ button {
         linear-gradient(180deg, #f8fbfe 0%, #edf5fa 58%, #e5f0f7 100%);
 }
 
-/* Kifejezetten szép és látható hóesés, jobb textúrával és árnyékkal */
+/* Kifejezetten kontrasztos, rétegzett hóesés */
 #snowfall {
     position: fixed;
     inset: 0;
@@ -69,8 +69,8 @@ button {
     top: -30px;
     color: #ffffff;
     user-select: none;
-    /* Erősebb, prémium árnyék a tökéletes láthatóságért világos háttéren is */
-    filter: drop-shadow(0 2px 4px rgba(52, 75, 92, 0.35));
+    /* Kettős árnyék: lágy fényudvar + élesebb kontúr a tökéletes láthatóságért világos háttéren is */
+    filter: drop-shadow(0 2px 5px rgba(30, 50, 65, 0.45)) drop-shadow(0 0 1px rgba(0, 0, 0, 0.3));
     animation: snowFall linear infinite;
     will-change: transform, opacity;
 }
@@ -765,7 +765,7 @@ footer {
 
 </section>
 
-<!-- ZÁRÓ RÉSZ -->
+<!-- ZÁRÁS -->
 
 <section class="closing">
 
@@ -773,7 +773,7 @@ footer {
 
     <p>
         Rengeteg nevetést, vidám pillanatot,
-        új élményeket, sok-sok sikert és
+        új élményeket, sok-kocs sikert és
         megannyi apró boldogságot kívánok neked!
 
         <br><br>
@@ -794,23 +794,35 @@ footer {
 </footer>
 
 <script>
-// LÁTVÁNYOSABB, JOBBAN LÁTHATÓ HÓESÉS
+// TÖBBRÉTEGŰ, LÁTVÁNYOS HÓESÉS PARALAXIS HATÁSSAL
 (() => {
     const layer = document.getElementById("snowfall");
     if (!layer) return;
 
     const symbols = ["❄", "❅", "❆", "•"];
-    const snowCount = window.matchMedia("(max-width: 700px)").matches ? 40 : 70;
+    const isMobile = window.matchMedia("(max-width: 700px)").matches;
+    const snowCount = isMobile ? 35 : 65;
 
     for (let i = 0; i < snowCount; i++) {
         const flake = document.createElement("span");
         flake.className = "snowflake";
         flake.textContent = symbols[Math.floor(Math.random() * symbols.length)];
         flake.style.left = Math.random() * 100 + "vw";
-        // Kicsit nagyobb méretek a jobb láthatóságért
-        flake.style.fontSize = (9 + Math.random() * 14) + "px";
-        flake.style.opacity = (0.5 + Math.random() * 0.45).toFixed(2);
-        flake.style.animationDuration = (9 + Math.random() * 14) + "s";
+        
+        // Mélységélesség (előtér vs háttér)
+        const isForeground = Math.random() > 0.6;
+        
+        if (isForeground) {
+            flake.style.fontSize = (13 + Math.random() * 9) + "px"; // Nagyobb pelyhek
+            flake.style.opacity = (0.8 + Math.random() * 0.2).toFixed(2); // Élénkebb
+            flake.style.animationDuration = (6 + Math.random() * 6) + "s"; // Gyorsabb esés
+            flake.style.zIndex = "9";
+        } else {
+            flake.style.fontSize = (7 + Math.random() * 6) + "px"; // Apróbb pelyhek
+            flake.style.opacity = (0.35 + Math.random() * 0.3).toFixed(2); // Halványabb
+            flake.style.animationDuration = (12 + Math.random() * 10) + "s"; // Lassabb esés
+        }
+
         flake.style.animationDelay = (-Math.random() * 20) + "s";
         flake.style.setProperty("--drift", (Math.random() * 120 - 60) + "px");
         layer.appendChild(flake);
