@@ -262,7 +262,7 @@ button {
     letter-spacing: 3px;
 }
 
-/* SZEKCIÓK VEZÉRLÉSE (Alapból rejtve, ha ki van választva) */
+/* SZEKCIÓK VEZÉRLÉSE */
 .toggle-section {
     display: none;
 }
@@ -393,7 +393,7 @@ section {
     letter-spacing: 2px;
 }
 
-/* SZEMÉLYES ÜZENET */
+/* SZEMÉLYES JELLEMZÉS */
 
 .personal-card {
     position: relative;
@@ -500,14 +500,14 @@ section {
     filter: saturate(.55);
 }
 
-/* Kiemelt Aláírás Kártya Stílusa */
+/* KIEMELT ALÁÍRÁS KÁRTYA */
 .signature-card {
-    max-width: 750px;
+    max-width: 780px;
     margin: 45px auto 0;
     background: #ffffff;
     border: 2px dashed #739bb5;
     border-radius: 16px;
-    padding: 28px 20px;
+    padding: 30px 22px;
     box-shadow: 0 10px 30px rgba(115, 155, 184, 0.2);
     text-align: center;
 }
@@ -516,21 +516,30 @@ section {
     font-size: 11px;
     letter-spacing: 3px;
     color: #7d9fb5;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     text-transform: uppercase;
+    font-weight: 600;
 }
 
 .signature-card .sig-text {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(18px, 2.5vw, 22px);
+    font-size: clamp(17px, 2.2vw, 21px);
     color: #344b5c;
-    font-weight: 600;
-    line-height: 1.5;
+    line-height: 1.7;
 }
 
 .signature-card .sig-text span {
     color: #638ba7;
     font-weight: 700;
+}
+
+.signature-card .sig-subtext {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    color: #718797;
+    font-style: italic;
 }
 
 /* Váltó gombok a szekciók alján */
@@ -702,6 +711,7 @@ footer {
         Remélem, mosolyt csal majd az arcodra! 😊
     </p>
 
+    <!-- FELDVA FELCSERÉLT GOMBOK -->
     <div class="hero-buttons">
 
         <button class="button-primary" onclick="showSection('personal')">
@@ -747,10 +757,10 @@ footer {
 
     </div>
 
-    <!-- Váltó gomb a másik opcióra -->
+    <!-- Váltó gomb a személyes üzenethez -->
     <div class="section-switch-container">
         <button class="button-switch" onclick="showSection('personal')">
-            Tovább a személyes üzenethez ✨
+            ← Tovább a személyes üzenethez ✨
         </button>
     </div>
 
@@ -829,7 +839,7 @@ footer {
     <!-- Váltó gomb a képekhez -->
     <div class="section-switch-container">
         <button class="button-switch" onclick="showSection('gallery')">
-            ← Vissza a képekhez
+            Nézd meg a képeket is ↓
         </button>
     </div>
 
@@ -857,11 +867,17 @@ footer {
         🌷 🎂 ☀️ 🎉
     </div>
 
-    <!-- KIEMELT ALÁÍRÁS -->
+    <!-- KIEMELT ÉS FRISSÍTETT ALÁÍRÁS -->
     <div class="signature-card">
-        <div class="sig-title">✦ Különleges üzenet ✦</div>
+        <div class="sig-title">✦ Hivatalos okirat & üzenet ✦</div>
         <div class="sig-text">
-            Nagyon sok szeretettel <span>Farkas Aurél Művészúrtól</span> a vajdák vajdájától <span>Szilágyi Gréta lövész főnökasszony</span> részére
+            Nagyon sok szeretettel küldi: <br>
+            <span>Farkas Aurél - Dzsuniii</span><br>
+            <span class="sig-subtext">A Vajdák vajdája, államférfi, békaember</span>
+            <br><br>
+            Különleges megbízottként átadva: <br>
+            <span>Szilágyi Gréta - Grétiii</span><br>
+            <span class="sig-subtext">Mesterlövész, Főnökasszony, versenypilóta</span> részére.
         </div>
     </div>
 
